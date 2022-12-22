@@ -1,0 +1,79 @@
+*{
+    transition: all 0.3s;
+    box-sizing: border-box;
+}
+
+body{
+    padding: 20px;
+    padding-bottom: 60px;
+    margin: 0;
+}
+table {
+  width: 100%;
+  border: 1px solid #444444;
+  position:relative;
+  margin-bottom: 40px;
+}
+th, td {
+  border: 1px solid #444444;
+}
+
+#loaderBox {
+    position:absolute;
+    width: 100%;
+    top:500%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-spin {
+    -webkit-animation: fa-spin 1.5s infinite linear;
+    animation: fa-spin 1.5s infinite linear;
+}
+
+.paginationjs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    bottom: 20px;
+}
+
+.first_table_row{
+    text-align: center;
+    background-color: aquamarine;
+    font-weight: bold;
+}
+
+.table_center{
+    text-align: center;
+}
+
+.table_data{
+    padding-left: 10px;
+}
+
+.number{
+    width: 100px;
+}
+
+.phone{
+    width: 200px;
+}
+
+.gmail{
+    width: 150px;
+}
+
+.search_bar{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    margin: 10px 0;
+}
+
+.search_bar>input{
+    width: 200px;
+}

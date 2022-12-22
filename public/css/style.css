@@ -1,0 +1,78 @@
+body {
+    padding:20px;
+}
+
+.Container-wrapper {
+    display:flex;
+    margin-bottom:50px;
+}
+
+.Container {
+    position:relative;
+    border:1px solid black;
+    padding:20px;
+    width:270px;
+    margin-right:50px;
+}
+
+.Container-small {
+    height:270px;
+} 
+
+.Container-medium {
+    height:320px;
+}
+
+.Container-big {
+    height:370px;
+}
+
+input {
+    width:180px;
+}
+
+.Content {
+    margin:10px;
+}
+
+h2, h3 {
+    margin:0;
+}
+
+.result_box {
+    position: absolute;
+    left:10px;
+    bottom:45px; 
+}
+
+.result {
+    color: rgb(101, 58, 245);
+}
+
+.fail {
+    color: rgb(251, 90, 122);
+}
+
+.btn {
+   position: absolute;
+   right:10px;
+   bottom:10px; 
+}
+
+table, th, tr, td {
+    border:1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    width:150px;
+}
+td {
+    padding-left: 5px;
+}
+th.first, td.first {
+    width:220px;
+}
+
+th.title, td.title {
+    width:300px;
+}
