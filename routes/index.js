@@ -12,6 +12,17 @@ router.get('/', (async function (request, response) {
 router.post('/calculate', (async function (request, response) {
     const { payments } = request.body;
     
+    // validation
+    let sum = 0;
+    for (let i = 0; i < payments.length; i++) {
+        const value = Number(payments[i].value);
+        if (value < 0) return response.send({success:false, failType:'negative'});
+        // if (value < 100) return response.send({success:false, failType:'too_low'});
+        sum += value;
+    }
+
+    if (sum === 0) return response.send({success:false, failType:'sum_0'});
+
     const results = Array.from({length: payments.length}, () => []);
     const size = payments.length;
     

@@ -38,7 +38,7 @@ function calculate() {
             name : firstInput,
             value : secondInput
         }
-        payments.push(doc)
+        payments.push(doc);
     }
 
     $.ajax({
@@ -49,7 +49,76 @@ function calculate() {
         }
     })
     .done(result => {
-        const { success, data } = result;
+        const { success, failType, data } = result;
+        if (!success && failType === 'negative') alert('잘못된 입력 값입니다.');
+        // if (!success && failType === 'too_low') alert('정산하기엔 금액이 너무 적습니다ㅜㅜ');
+        else if (!success && failType === 'sum_0') alert('적어도 한명은 돈을 지불했어야 정산할 수 있습니다!');
+        else if (success) {
+            const results = data;
+            $('#resultTarget').html('');
+            for (let i = 0; i < results.length; i++) {
+                const resultDiv = document.createElement('div');
+                resultDiv.className = 'p-2 col result';
+                resultDiv.id = `result${i}`;
+                document.getElementById('resultTarget').appendChild(resultDiv);
+
+                if (results[i].length > 0) {
+                    const fromDiv = document.createElement('div');
+                    fromDiv.className = 'from';
+                    document.querySelector(`#result${i}`).appendChild(fromDiv);
+
+                    for (let j = 0; j < results[i].length; j++) {
+                        const { name, value, index } = results[i][j];
+
+                        const toDiv = document.createElement('div');
+                        fromDiv.className = 'to';
+                        document.querySelector(`#result${i}`).appendChild(toDiv);
+                        const innerDiv = document.createElement('div');
+                        document.querySelector(`#result${i} .to`).appendChild(innerDiv);
+
+                        const nameSpan = document.createElement('span');
+                        nameSpan.className = 'to';
+                        nameSpan.innerText = name;
+                        const colonSpan = document.createElement('span');
+                        const valueSpan = document.createElement('span');
+                        valueSpan.className = 'to';
+                        valueSpan.innerText = value.toLocaleString();
+                        const unitSpan = document.createElement('span');
+
+                        document.querySelector(`#result${i} .to .inner`).appendChild(nameSpan);
+                        document.querySelector(`#result${i} .to .inner`).appendChild(colonSpan);
+                        document.querySelector(`#result${i} .to .inner`).appendChild(valueSpan);
+                        document.querySelector(`#result${i} .to .inner`).appendChild(unitSpan);
+                    }
+                }
+                
+
+
+                // $('#resultTarget').append(`
+                //     <div class="p-2 col result">
+                //         <div class="from">
+                //             <span class="name fw-bolder">name1</span>
+                //         </div>
+                //         <div class="to">
+                //             <div class=inner">
+                //                 <span class="name">name2</span>
+                //                 <span>:</span>
+                //                 <span class="value">3,000</span>
+                //                 <span>원</span>
+                //             </div>
+                //         </div>
+                //         <div class="to" style="display:flex;">
+                //             <div style="margin-left:auto">
+                //                 <span class="name">name3</span>
+                //                 <span>:</span>
+                //                 <span class="value">5,000</span>
+                //                 <span>원</span>
+                //             </div>
+                //         </div>
+                //     </div>
+                // `);
+            }
+        }
     })
     .fail(error => {
         console.log(error);

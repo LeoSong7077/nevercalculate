@@ -37,3 +37,11 @@ body{
   .btn-animation:active {
     top:2.5px;
   }
+
+  .to {
+    display:flex;
+  }
+
+  .to .inner {
+    margin-left: auto;
+  }
