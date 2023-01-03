@@ -11,7 +11,7 @@ router.get('/', (async function (request, response) {
 
 router.post('/calculate', (async function (request, response) {
     const { payments } = request.body;
-    
+
     // validation
     let sum = 0;
     for (let i = 0; i < payments.length; i++) {
@@ -28,17 +28,19 @@ router.post('/calculate', (async function (request, response) {
     
     for (let i = 0; i < size; i++) {
         const sd_payment = payments[i]; // standard payment
-        for (let j = i; j < size; j++) {
+        for (let j = i + 1; j < size; j++) {
             const cp_payment = payments[j]; // compare payment
             const diff = Math.abs(round(sd_payment.value/size, 10) - round(cp_payment.value/size, 10));
-            if (sd_payment.value > cp_payment.value)
-                results[j].push({ name:cp_payment.name, value:diff, index:j })
-            else if (cp_payment.value - sd_payment.value > 0)
-                results[i].push({ name:sd_payment.name, value:diff, index:i })
+            const sd_payment_value = Number(sd_payment.value);
+            const cp_payment_value = Number(cp_payment.value);
+            if (sd_payment_value > cp_payment_value)
+                results[j].push({ name:sd_payment.name, value:diff, index:j })
+            else if (cp_payment_value - sd_payment_value > 0)
+                results[i].push({ name:cp_payment.name, value:diff, index:i }) 
         }
     }
 
-    // console.log(results);
+    console.log(results);
 
     response.send({success:true, data:results})
 }));

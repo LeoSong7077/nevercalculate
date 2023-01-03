@@ -45,3 +45,11 @@ body{
   .to .inner {
     margin-left: auto;
   }
+
+  .to span {
+    padding:1.5px;
+  }
+
+  .resultTarget {
+    display:none;
+  }

@@ -10,14 +10,14 @@ function add() {
         $('#addButton').addClass('btn-secondary');
         $('#addButton').attr('disabled', true);
     }
-
+    // cfQxJr222 Jbedpa357
     $('#addTarget').append(`
-        <div class="p-2 bg-light row">
-            <input type="text" class="form-control col float-center text-center" style="width:100px" id="" aria-describedby="emailHelp" placeholder="name${count++}">
+        <div class="p-2 bg-light row line">
+            <input type="text" class="form-control col float-center text-center" style="width:100px" id="" placeholder="name${count++}">
             <div class="col my-auto">
                 <span>:</span>
             </div>
-            <input type="number" inputmode="demical" class="form-control col float-end text-end" style="width:150px" id="" aria-describedby="emailHelp">
+            <input type="number" inputmode="demical" class="form-control col float-end text-end" style="width:150px" id="" placeholder="0">
             <div class="col my-auto">
                 <span style="margin-left:-0.5em">원</span>
             </div>
@@ -55,40 +55,57 @@ function calculate() {
         else if (!success && failType === 'sum_0') alert('적어도 한명은 돈을 지불했어야 정산할 수 있습니다!');
         else if (success) {
             const results = data;
+            $('#resultTarget').show();
             $('#resultTarget').html('');
             for (let i = 0; i < results.length; i++) {
+                let [ nameInput, secondInput ] = lines[i].querySelectorAll('input');
+                nameInput = nameInput.value;
+                if (!nameInput) nameInput = `name${i+1}`;
+
                 const resultDiv = document.createElement('div');
                 resultDiv.className = 'p-2 col result';
                 resultDiv.id = `result${i}`;
-                document.getElementById('resultTarget').appendChild(resultDiv);
+                document.getElementById('resultTarget').appendChild(resultDiv); // 추가
 
                 if (results[i].length > 0) {
                     const fromDiv = document.createElement('div');
                     fromDiv.className = 'from';
-                    document.querySelector(`#result${i}`).appendChild(fromDiv);
+                    document.querySelector(`#result${i}`).appendChild(fromDiv); // 추가
+
+                    const fromNameSpan = document.createElement('div');
+                    fromNameSpan.className = 'name fw-bolder';
+                    fromNameSpan.innerText = nameInput;
+                    document.querySelector(`#result${i}`).appendChild(fromNameSpan); // 추가
 
                     for (let j = 0; j < results[i].length; j++) {
                         const { name, value, index } = results[i][j];
 
                         const toDiv = document.createElement('div');
-                        fromDiv.className = 'to';
-                        document.querySelector(`#result${i}`).appendChild(toDiv);
+                        toDiv.className = `to${j} to`;
+                        document.querySelector(`#result${i}`).appendChild(toDiv); // 추가
+
                         const innerDiv = document.createElement('div');
-                        document.querySelector(`#result${i} .to`).appendChild(innerDiv);
+                        innerDiv.className = 'inner';
+                        document.querySelector(`#result${i} .to${j}`).appendChild(innerDiv); // 추가
 
                         const nameSpan = document.createElement('span');
-                        nameSpan.className = 'to';
-                        nameSpan.innerText = name;
-                        const colonSpan = document.createElement('span');
-                        const valueSpan = document.createElement('span');
-                        valueSpan.className = 'to';
-                        valueSpan.innerText = value.toLocaleString();
-                        const unitSpan = document.createElement('span');
+                        nameSpan.className = 'name';
+                        nameSpan.innerText = `➡ ${name}`;
+                        document.querySelector(`#result${i} .to${j} .inner`).appendChild(nameSpan); // 추가
 
-                        document.querySelector(`#result${i} .to .inner`).appendChild(nameSpan);
-                        document.querySelector(`#result${i} .to .inner`).appendChild(colonSpan);
-                        document.querySelector(`#result${i} .to .inner`).appendChild(valueSpan);
-                        document.querySelector(`#result${i} .to .inner`).appendChild(unitSpan);
+                        const colonSpan = document.createElement('span');
+                        colonSpan.innerText = ':';
+                        document.querySelector(`#result${i} .to${j} .inner`).appendChild(colonSpan); // 추가
+
+                        const valueSpan = document.createElement('span');
+                        valueSpan.className = 'value';
+                        valueSpan.innerText = value.toLocaleString();
+                        document.querySelector(`#result${i} .to${j} .inner`).appendChild(valueSpan); // 추가
+
+                        const unitSpan = document.createElement('span');
+                        unitSpan.innerText = '원';
+                        document.querySelector(`#result${i} .to${j} .inner`).appendChild(unitSpan); // 추가
+                        
                     }
                 }
                 
