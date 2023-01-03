@@ -55,7 +55,6 @@ function calculate() {
         else if (!success && failType === 'sum_0') alert('적어도 한명은 돈을 지불했어야 정산할 수 있습니다!');
         else if (success) {
             const results = data;
-            $('#resultTarget').show();
             $('#resultTarget').html('');
             for (let i = 0; i < results.length; i++) {
                 let [ nameInput, secondInput ] = lines[i].querySelectorAll('input');
@@ -68,6 +67,8 @@ function calculate() {
                 document.getElementById('resultTarget').appendChild(resultDiv); // 추가
 
                 if (results[i].length > 0) {
+                    $('#resultTarget').show();
+
                     const fromDiv = document.createElement('div');
                     fromDiv.className = 'from';
                     document.querySelector(`#result${i}`).appendChild(fromDiv); // 추가
@@ -134,6 +135,9 @@ function calculate() {
                 //         </div>
                 //     </div>
                 // `);
+
+                // $("html, body").animate({ scrollTop: $(document).height() }, 100);
+                window.scrollTo(0, document.body.scrollHeight);
             }
         }
     })
