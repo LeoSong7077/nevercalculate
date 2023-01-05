@@ -50,6 +50,87 @@ body{
     padding:1.5px;
   }
 
-  .resultTarget {
+  .resultContainer {
     display:none;
+    position:relative;
+  }
+
+  .resultContainer:before {
+    content:"결과";
+    position:absolute;
+    top:-34px;
+    left:1px;
+    background-color:black;
+    color:white;
+    border-radius:15px 15px 0 0;
+    padding:5px 30px;
+  }
+
+
+  .copyBox {
+    display:flex;
+    position:relative;
+  }
+
+  .copyBox button {
+    padding:3px 7px 5px 8px;
+    background:#0D6DFD;
+    color:#fff;
+    border:none;
+    outline:none;
+    border-radius:10px;
+    cursor:pointer;
+
+    margin-left: auto;
+  }
+
+  .copyBox button:active {
+    background:#66A2FD;
+  }
+
+  .copyBox button:before {
+    content:"Copied";
+    position:absolute;
+    top:9px;
+    right:-68px;
+    background-color: #0D6DFD;
+    padding:6px 8px;
+    border-radius: 10px;
+    font-size:12px;
+    display:none;
+  }
+
+  .copyBox button:after {
+    content:"";
+    position:absolute;
+    top:20px;
+    right:-16px;
+    width:8px;
+    height:8px;
+    background-color: #0D6DFD;
+    transform:rotate(45deg);
+    display:none;
+  }
+
+  .copyBox.active button:before,
+  .copyBox.active button:after {
+    display:block;
+  }
+
+  .line {
+    position:relative;
+  }
+
+  .line:after {
+    content:attr(data-kor);
+    /* content:"일만오천삼백원"; */
+    position:absolute;
+    top: 3.5rem;;
+    right:3rem;
+    font-size:14px;
+    font-weight:bold;
+    display:none;
+  }
+  .line.active:after {
+    display:block;
   }

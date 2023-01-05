@@ -14,14 +14,16 @@ router.post('/calculate', (async function (request, response) {
 
     // validation
     let sum = 0;
+    let isNegative = false, isTooLow = false;
     for (let i = 0; i < payments.length; i++) {
         const value = Number(payments[i].value);
-        if (value < 0) return response.send({success:false, failType:'negative'});
-        // if (value < 100) return response.send({success:false, failType:'too_low'});
+        if (value < 0) isNegative = true;
+        if (value < 100) isTooLow = true;
         sum += value;
     }
-
+    if (isNegative) return response.send({success:false, failType:'negative'});
     if (sum === 0) return response.send({success:false, failType:'sum_0'});
+    // if (isTooLow) return response.send({success:false, failType:'too_low'});
 
     const results = Array.from({length: payments.length}, () => []);
     const size = payments.length;
@@ -34,13 +36,11 @@ router.post('/calculate', (async function (request, response) {
             const sd_payment_value = Number(sd_payment.value);
             const cp_payment_value = Number(cp_payment.value);
             if (sd_payment_value > cp_payment_value)
-                results[j].push({ name:sd_payment.name, value:diff, index:j })
+                results[j].push({ name:sd_payment.name, value:diff }); // index:j
             else if (cp_payment_value - sd_payment_value > 0)
-                results[i].push({ name:cp_payment.name, value:diff, index:i }) 
+                results[i].push({ name:cp_payment.name, value:diff }); // index:i
         }
     }
-
-    console.log(results);
 
     response.send({success:true, data:results})
 }));
@@ -50,3 +50,5 @@ module.exports = router;
 function round(value, digit) {
     return Math.round(value / digit) * digit;
 }
+
+// +/- calculator

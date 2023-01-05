@@ -1,7 +1,7 @@
 // 정산하기 - add
 let count = 4;
 $(document).ready(function () {
-    $('button').click(add);
+    $('#addButton').click(add);
 });
 
 function add() {
@@ -12,12 +12,12 @@ function add() {
     }
     // cfQxJr222 Jbedpa357
     $('#addTarget').append(`
-        <div class="p-2 bg-light row line">
+        <div class="p-3 row line">
             <input type="text" class="form-control col float-center text-center" style="width:100px" id="" placeholder="name${count++}">
             <div class="col my-auto">
                 <span>:</span>
             </div>
-            <input type="number" inputmode="demical" class="form-control col float-end text-end" style="width:150px" id="" placeholder="0">
+            <input class="form-control col float-end text-end" style="width:150px" id="" placeholder="0" data-val="0" oninput="valueInputValid(this)">
             <div class="col my-auto">
                 <span style="margin-left:-0.5em">원</span>
             </div>
@@ -33,7 +33,7 @@ function calculate() {
         firstInput = firstInput.value;
         secondInput = secondInput.value;
         if (!firstInput) firstInput = `name${i+1}`;
-        if (!secondInput) secondInput = 0;
+        if (!secondInput || isNaN(secondInput)) secondInput = 0;
         const doc = {
             name : firstInput,
             value : secondInput
@@ -50,12 +50,13 @@ function calculate() {
     })
     .done(result => {
         const { success, failType, data } = result;
-        if (!success && failType === 'negative') alert('잘못된 입력 값입니다.');
-        // if (!success && failType === 'too_low') alert('정산하기엔 금액이 너무 적습니다ㅜㅜ');
-        else if (!success && failType === 'sum_0') alert('적어도 한명은 돈을 지불했어야 정산할 수 있습니다!');
-        else if (success) {
+        if (!success && failType === 'negative') return alert('잘못된 입력 값입니다.');
+        if (!success && failType === 'sum_0') return alert('적어도 한명은 돈을 지불했어야 정산할 수 있습니다!');
+        // if (!success && failType === 'too_low') return alert('정산하기엔 금액이 너무 적습니다!');
+        if (success) {
             const results = data;
             $('#resultTarget').html('');
+            let realCnt = 0;
             for (let i = 0; i < results.length; i++) {
                 let [ nameInput, secondInput ] = lines[i].querySelectorAll('input');
                 nameInput = nameInput.value;
@@ -64,19 +65,22 @@ function calculate() {
                 const resultDiv = document.createElement('div');
                 resultDiv.className = 'p-2 col result';
                 resultDiv.id = `result${i}`;
+                resultDiv.style.borderBottom = '1px solid #B0B0B0';
+                resultDiv.style.display = 'none';
                 document.getElementById('resultTarget').appendChild(resultDiv); // 추가
 
                 if (results[i].length > 0) {
-                    $('#resultTarget').show();
+                    $('#resultContainer').show();
+                    resultDiv.style.display = 'block';
 
                     const fromDiv = document.createElement('div');
                     fromDiv.className = 'from';
                     document.querySelector(`#result${i}`).appendChild(fromDiv); // 추가
 
-                    const fromNameSpan = document.createElement('div');
+                    const fromNameSpan = document.createElement('span');
                     fromNameSpan.className = 'name fw-bolder';
                     fromNameSpan.innerText = nameInput;
-                    document.querySelector(`#result${i}`).appendChild(fromNameSpan); // 추가
+                    document.querySelector(`#result${i} .from`).appendChild(fromNameSpan); // 추가
 
                     for (let j = 0; j < results[i].length; j++) {
                         const { name, value, index } = results[i][j];
@@ -106,39 +110,12 @@ function calculate() {
                         const unitSpan = document.createElement('span');
                         unitSpan.innerText = '원';
                         document.querySelector(`#result${i} .to${j} .inner`).appendChild(unitSpan); // 추가
-                        
                     }
                 }
-                
+                // copy buttom
 
-
-                // $('#resultTarget').append(`
-                //     <div class="p-2 col result">
-                //         <div class="from">
-                //             <span class="name fw-bolder">name1</span>
-                //         </div>
-                //         <div class="to">
-                //             <div class=inner">
-                //                 <span class="name">name2</span>
-                //                 <span>:</span>
-                //                 <span class="value">3,000</span>
-                //                 <span>원</span>
-                //             </div>
-                //         </div>
-                //         <div class="to" style="display:flex;">
-                //             <div style="margin-left:auto">
-                //                 <span class="name">name3</span>
-                //                 <span>:</span>
-                //                 <span class="value">5,000</span>
-                //                 <span>원</span>
-                //             </div>
-                //         </div>
-                //     </div>
-                // `);
-
-                // $("html, body").animate({ scrollTop: $(document).height() }, 100);
-                window.scrollTo(0, document.body.scrollHeight);
             }
+            window.scrollTo(0, document.body.scrollHeight);
         }
     })
     .fail(error => {
@@ -147,6 +124,79 @@ function calculate() {
 
 }
 
-function minusValidation(obj) {
-    obj.value = !!obj.value && Math.abs(obj.value) >= 0 ? Math.abs(obj.value) : null;
+// function minusValidation(obj) {
+//     obj.value = !!obj.value && Math.abs(obj.value) >= 0 ? Math.abs(obj.value) : null;
+// }
+
+// copy
+let copyBox = document.querySelector('.copyBox');
+copyBox.querySelector('button').addEventListener('click', function() {
+    copyBox.classList.add('active');
+    setTimeout(function() {
+        copyBox.classList.remove('active');
+    }, 1300);
+
+    let copyValue = ''
+    const results = document.querySelectorAll('.result');
+    for (let i = 0; i < results.length; i++) {
+        const from = results[i].querySelector('.from');
+        if (from) {
+            const from_name = from.querySelector('.name').innerText;
+            copyValue += from_name;
+            copyValue += '\n';
+            const to_arr = results[i].querySelectorAll('.to');
+            for (let j = 0; j < to_arr.length; j++) {
+                const to_name = to_arr[j].querySelector('.name').innerText;
+                const to_value = to_arr[j].querySelector('.value').innerText;
+                copyValue += `\t\t\t${to_name} : ${to_value}원`;
+                copyValue += '\n';
+            }
+            copyValue += '\n';
+        }
+    }
+    // copyValue = copyValue.slice(0, -1);
+    copyValue += '\t\t\tnevercalculate.com';
+
+    window.navigator.clipboard.writeText(copyValue).then(() => {});
+});
+
+function valueInputValid(obj){
+    const inputValue = obj.value;
+    // var regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
+    if(isNaN(inputValue)) { // || regExp.test(obj.value)
+        obj.value = $(obj).data('val')
+        alert('숫자만 입력이 가능합니다!');
+        // obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
+    } 
+    else {
+        $(obj).data('val', inputValue);
+        const lineDiv = $(obj).parent('.line');
+        if (!inputValue || inputValue.length < 3) lineDiv.removeClass('active');
+        else {
+            // lineDiv.data('kor', 'aaa');
+            console.log(lineDiv.data('kor'));
+            lineDiv.data('kor', '저거');
+            console.log(lineDiv.data('kor'));
+            lineDiv.addClass('active');
+        } 
+    } 
+}
+
+function viewKorean(num) {	
+    var hanA = new Array("","일","이","삼","사","오","육","칠","팔","구","십");
+    var danA = new Array("","십","백","천","","십","백","천","","십","백","천","","십","백","천");
+    var result = "";
+	for(i=0; i<num.length; i++) {		
+		str = "";
+		han = hanA[num.charAt(num.length-(i+1))];
+		if(han != "")
+			str += han+danA[i];
+		if(i == 4) str += "만";
+		if(i == 8) str += "억";
+		if(i == 12) str += "조";
+		result = str + result;
+	}
+	if(num != 0)
+		result = result + "원";
+    return result ;
 }
