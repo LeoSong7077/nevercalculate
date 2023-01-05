@@ -173,10 +173,7 @@ function valueInputValid(obj){
         const lineDiv = $(obj).parent('.line');
         if (!inputValue || inputValue.length < 3) lineDiv.removeClass('active');
         else {
-            // lineDiv.data('kor', 'aaa');
-            console.log(lineDiv.data('kor'));
-            lineDiv.data('kor', '저거');
-            console.log(lineDiv.data('kor'));
+            lineDiv.attr('data-kor', viewKorean(inputValue));
             lineDiv.addClass('active');
         } 
     } 
