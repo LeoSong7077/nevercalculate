@@ -155,7 +155,7 @@ copyBox.querySelector('button').addEventListener('click', function() {
         }
     }
     // copyValue = copyValue.slice(0, -1);
-    copyValue += '\t\t\tnevercalculate.com';
+    copyValue += '\t\t\thttps://nevercalculate.com/';
 
     window.navigator.clipboard.writeText(copyValue).then(() => {});
 });
