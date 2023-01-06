@@ -13,14 +13,11 @@ function add() {
     // cfQxJr222 Jbedpa357
     $('#addTarget').append(`
         <div class="p-3 row line">
-            <input type="text" class="form-control col float-center text-center" style="width:100px" id="" placeholder="name${count++}">
-            <div class="col my-auto">
+            <input type="text" class="form-control float-center text-center cName" placeholder="name${count++}">
+            <div class="my-auto colon">
                 <span>:</span>
             </div>
-            <input class="form-control col float-end text-end" style="width:150px" id="" placeholder="0" data-val="0" oninput="valueInputValid(this)">
-            <div class="col my-auto">
-                <span style="margin-left:-0.5em">원</span>
-            </div>
+            <input class="form-control float-end text-end cValue" placeholder="0" data-val="0" oninput="valueInputValid(this)">
         </div>
     `);
 }
@@ -185,9 +182,11 @@ function viewKorean(num) {
     var result = "";
 	for(i=0; i<num.length; i++) {		
 		str = "";
+        let isFirstNumOne = false;
 		han = hanA[num.charAt(num.length-(i+1))];
-		if(han != "")
-			str += han+danA[i];
+        if (i === (num.length - 1) && han === "일") isFirstNumOne = true; 
+		if(han != "") str += ((!isFirstNumOne)?han:'')+danA[i];
+
 		if(i == 4) str += "만";
 		if(i == 8) str += "억";
 		if(i == 12) str += "조";

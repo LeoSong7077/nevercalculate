@@ -34,44 +34,37 @@
     <div class="d-flex justify-content-center cContainer container">
         <div class="cWrapper wrapper">
             <h1 class="d-flex justify-content-center">
-                <span class="badge bg-dark mb-5" onclick="window.location.reload();" style="cursor:pointer;">정산하기</span>
+                <span class="bg-dark mb-4 cTitle" onclick="window.location.reload();">정산하기</span>
             </h1>
             <form action="">
                 <div class="col">
-                    <div class="col bg-light p-4 pt-3" id="addTarget">
+                    <div class="col p-2 pb-2" id="addTarget">
                         <div class="p-3 row line">
-                            <input type="text" class="form-control col float-center text-center" style="width:100px" id="" placeholder="name1">
-                            <div class="col my-auto">
+                            <input type="text" class="form-control float-center text-center cName" placeholder="name1">
+                            <div class="my-auto colon">
                                 <span>:</span>
                             </div>
-                            <input class="form-control col float-end text-end cValue" style="width:150px" id="" placeholder="0" data-val="0" oninput="valueInputValid(this)">
-                            <div class="col my-auto">
-                                <span style="margin-left:-0.5em">원</span>
-                            </div>
+                            <input class="form-control float-end text-end cValue" placeholder="0" data-val="0" oninput="valueInputValid(this)">
                         </div>
-                        <!-- 이 밑에 13만 4천 5백 원 이런식으로 추가하기 -->
-                        <div class="p-3 row line">
-                            <input type="text" class="form-control col float-center text-center" style="width:100px" id="" placeholder="name2">
-                            <div class="col my-auto">
+                        <div class="p-3 row line d-flex justify-content-center">
+                            <input type="text" class="form-control float-center text-center cName" placeholder="name2">
+                            <div class="my-auto colon">
                                 <span>:</span>
                             </div>
-                            <input class="form-control col float-end text-end" style="width:150px" id="" placeholder="0" data-val="0" oninput="valueInputValid(this)">
-                            <div class="col my-auto">
-                                <span style="margin-left:-0.5em">원</span>
-                            </div>
+                            <input class="form-control float-end text-end cValue" placeholder="0" data-val="0" oninput="valueInputValid(this)">
                         </div>
                         <div class="p-3 row line">
-                            <input type="text" class="form-control col float-center text-center" style="width:100px" id="" placeholder="name3">
-                            <div class="col my-auto">
+                            <input type="text" class="form-control float-center text-center cName" placeholder="name3">
+                            <div class="my-auto colon">
                                 <span>:</span>
                             </div>
-                            <input class="form-control col float-end text-end" style="width:150px" id="" placeholder="0" data-val="0" oninput="valueInputValid(this)">
-                            <div class="col my-auto">
+                            <input class="form-control float-end text-end cValue" placeholder="0" data-val="0" oninput="valueInputValid(this)">
+                            <!-- <div class="col my-auto">
                                 <span style="margin-left:-0.5em">원</span>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
-                    <div class="p-3 row mb-4">
+                    <div class="row mt-3 mb-5" style="margin:0 auto; width:90%">
                         <button type="button" class="btn-primary col rounded-3 cBtn" id="addButton">+</button>
                     </div>
                     <!-- background-color:#0A6FFC; -->

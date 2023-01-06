@@ -121,16 +121,61 @@ body{
     position:relative;
   }
 
-  .line:after {
+  .line::after {
     content:attr(data-kor);
     /* content:"일만오천삼백원"; */
     position:absolute;
     top: 3.5rem;;
-    right:3rem;
+    right:1.2rem;
     font-size:14px;
     font-weight:bold;
     display:none;
   }
-  .line.active:after {
+  .line.active::after {
     display:block;
+  }
+
+  .line::before {
+    /* content:attr(data-kor); */
+    content:"원";
+    position:absolute;
+    top: 1.4rem;
+    right:-0.2rem;
+    font-weight:lighter;
+  }
+
+  .line .colon {
+    width:27px;
+  }
+
+  .line .cName {
+    width:100px
+  }
+
+  .line .cValue {
+    width:150px
+  }
+
+  .cTitle {
+    position:relative;
+    cursor:pointer;
+    display:block;
+    font-size:25px;
+    color:white;
+    padding:10px 15px;
+    border-radius:10px;
+  }
+  .cTitle::after {
+    content:"reset";
+    position:absolute;
+    top: 1.75rem;
+    right:-3rem;
+    color:black;
+    font-weight:300;
+    font-size:1rem;
+    font-family: sans-serif;
+    border-bottom:3px solid black;
+    width:60px;
+    text-align: end;
+    padding-right:2px;
   }
