@@ -94,7 +94,7 @@ body{
     content:"Copied";
     position:absolute;
     top:9px;
-    right:-68px;
+    right:40px;
     background-color: #0D6DFD;
     padding:6px 8px;
     border-radius: 10px;
@@ -106,7 +106,7 @@ body{
     content:"";
     position:absolute;
     top:20px;
-    right:-16px;
+    right:38px;
     width:8px;
     height:8px;
     background-color: #0D6DFD;
