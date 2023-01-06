@@ -168,7 +168,7 @@ body{
   .cTitle::after {
     content:"reset";
     position:absolute;
-    top: 28px;
+    top: 27.5px;
     right:-50px;
     color:black;
     font-weight:300;
@@ -177,5 +177,5 @@ body{
     border-bottom:3px solid black;
     width:60px;
     text-align: end;
-    padding-right:5px;
+    padding-right:3px;
   }
