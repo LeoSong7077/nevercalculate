@@ -17,7 +17,7 @@ function add() {
             <div class="my-auto colon">
                 <span>:</span>
             </div>
-            <input class="form-control float-end text-end cValue" placeholder="0" data-val="0" oninput="valueInputValid(this)">
+            <input class="form-control float-end text-end cValue" placeholder="0" maxlength="11" data-val="0" oninput="valueInputValid(this)">
         </div>
     `);
 }
