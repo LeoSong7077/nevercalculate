@@ -164,13 +164,13 @@ body{
     display:block;
     font-size:25px;
     color:white;
-    padding:10px 15px;
+    padding:7px 15px;
     border-radius:10px;
   }
   .cTitle::after {
     content:"reset";
     position:absolute;
-    top: 27.7px;
+    top: 21.7px;
     right:-50px;
     color:black;
     font-weight:300;
