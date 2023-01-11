@@ -141,7 +141,7 @@ body{
     /* content:attr(data-kor); */
     content:"원";
     position:absolute;
-    top: 1.4rem;
+    top: 1.5rem;
     right:-0.2rem;
     font-weight:lighter;
   }

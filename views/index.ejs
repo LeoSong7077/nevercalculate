@@ -35,11 +35,12 @@
 <body>
     
 
-    <div class="d-flex justify-content-center cContainer container">
-        <div class="cWrapper wrapper">
-            <h1 class="d-flex justify-content-center">
+    <div class="d-flex flex-column cContainer container">
+        <h1 style="text-align:start">네버칼<span style="font-weight:100">.com</span></h1>
+        <div class="cWrapper wrapper" style="width:281px; margin:0 auto; font-family: sans-serif;">
+            <h2 class="d-flex justify-content-center">
                 <span class="bg-dark mb-4 cTitle" onclick="window.location.reload();"><strong>정산하기</strong></span>
-            </h1>
+            </h2>
             <form action="">
                 <div class="col">
                     <div class="col p-2 pb-2" id="addTarget">
@@ -50,7 +51,7 @@
                             </div>
                             <input class="form-control float-end text-end cValue" placeholder="0" maxlength="11" data-val="0" oninput="valueInputValid(this)">
                         </div>
-                        <div class="p-3 row line d-flex justify-content-center">
+                        <div class="p-3 row line">
                             <input type="text" class="form-control float-center text-center cName" placeholder="name2">
                             <div class="my-auto colon">
                                 <span>:</span>
