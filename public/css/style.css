@@ -5,10 +5,25 @@ body{
   user-select: none;
   overflow-x:hidden;
  }
+ .page {
+  text-align:start; 
+  margin-bottom:30px; 
+  font-size:32px; 
+  padding-left:10px;
+ }
+ .page .com {
+  font-weight:100;
+ }
 
 .container {
   padding:30px;
   overflow-x:hidden;
+}
+
+.cWrapper {
+  width:281px; 
+  margin:0 auto; 
+  font-family: sans-serif;
 }
 
 .btn-animation {
@@ -162,15 +177,15 @@ body{
     position:relative;
     cursor:pointer;
     display:block;
-    font-size:25px;
+    font-size:20px;
     color:white;
-    padding:7px 15px;
+    padding:8px 15px;
     border-radius:10px;
   }
   .cTitle::after {
     content:"reset";
     position:absolute;
-    top: 21.7px;
+    top: 17.7px;
     right:-50px;
     color:black;
     font-weight:300;
