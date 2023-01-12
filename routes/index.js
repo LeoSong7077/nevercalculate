@@ -46,7 +46,8 @@ router.post('/calculate', (async function (request, response) {
 }));
 
 router.get('/robots.txt', function (request, response) {
-    response.send('User-agent: *<br>Allow: /')
+    response.type("text/plain");
+    response.send('User-agent: *\nAllow: /')
 });
 
 module.exports = router; 

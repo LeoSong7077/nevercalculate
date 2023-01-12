@@ -1,2 +1,5 @@
+# 이 문서는 작동되지 않음
+# router의 robots.txt 라우터 내부에 로직 작성
+
 User-agent: *
 Allow: /
