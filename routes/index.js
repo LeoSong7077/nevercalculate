@@ -45,6 +45,10 @@ router.post('/calculate', (async function (request, response) {
     response.send({success:true, data:results})
 }));
 
+router.get('/robots.txt', function (request, response) {
+    response.send('User-agent: *<br>Allow: /')
+});
+
 module.exports = router; 
 
 function round(value, digit) {
