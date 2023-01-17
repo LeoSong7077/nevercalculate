@@ -4,7 +4,8 @@ body{
   -ms-use-select: none;
   user-select: none;
   overflow-x:hidden;
- }
+}
+
  .page {
   text-align:start; 
   margin-bottom:30px; 
@@ -181,6 +182,7 @@ body{
     color:white;
     padding:8px 15px;
     border-radius:10px;
+    text-decoration: none;
   }
   .cTitle::after {
     content:"reset";
@@ -195,4 +197,8 @@ body{
     width:60px;
     text-align: end;
     padding-right:3px;
+  }
+  .cTitle:link, .cTitle:visited, .cTitle:hover {
+    text-decoration: none;
+    color:white;
   }
