@@ -47,7 +47,22 @@ router.post('/calculate', (async function (request, response) {
 
 router.get('/robots.txt', function (request, response) {
     response.type("text/plain");
-    response.send('User-agent: *\nAllow: /')
+    response.send('User-agent: *\nAllow: /');
+});
+
+router.get('/sitemap.xml', function (request, response) {
+    let data = `<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      <url>
+        <loc>https://nevercalculate.com/</loc>
+        <lastmod>2023-02-23T13:42:00+09:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+      </url>
+    </urlset>`;
+
+    response.header("Content-Type", "application/xml");
+    response.status(200).send(data);
 });
 
 module.exports = router; 
