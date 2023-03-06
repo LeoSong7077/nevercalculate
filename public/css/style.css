@@ -184,7 +184,7 @@ body{
     border-radius:10px;
     text-decoration: none;
   }
-  .cTitle::after {
+  .cTitleAfter::after {
     content:"reset";
     position:absolute;
     top: 17.7px;

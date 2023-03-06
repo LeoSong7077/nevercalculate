@@ -5,7 +5,7 @@ const passport = require('passport');
 // const googleAuth = passport.authenticate('google', { scope: ['email', 'profile'] });
 
 const signin = function (type) {
-    if (type === 'local') return passport.authenticate(type, { failureRedirect:'/login/fail', successRedirect:'/login/success', failureFlash:true });
+    if (type === 'local') return passport.authenticate(type, { failureRedirect:'/gr/login/fail', successRedirect:'/gr/login/success', failureFlash:false });
     // else if (type === 'google') return passport.authenticate(type, { failureRedirect:'/login/google/fail', successRedirect:'/login/google/success', failureFlash:true });
     // else if (type === 'custom') return passport.authenticate(type, { failureRedirect:'/login/google/fail', successRedirect:'/login/custom/success', failureFlash:true });
 }

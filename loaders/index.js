@@ -3,6 +3,7 @@ const expressLoader = require('./express');
 const middlewareLoader = require('./middleware');
 const errorHandlerLoader = require('./errorHandler');
 const routerLoader = require('./router');
+const loginLoader = require('./login');
 
 // 실행
 module.exports = function (app) {
@@ -10,6 +11,6 @@ module.exports = function (app) {
     expressLoader(app);
     middlewareLoader(app);
     errorHandlerLoader(app);
+    loginLoader(app);
     routerLoader(app);
-    
 }
