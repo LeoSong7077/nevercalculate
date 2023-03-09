@@ -108,8 +108,103 @@
             </div>
 
             <div id="mainBox" class="box">
+                <div>
+                    아이디 : <%=userid%>
+                </div>
+                <div>
+                    자산 : <%=total_amount%> USDT
+                </div>
+                <br>
 
+                <div>
+                    [Plan]
+                </div>
+                <div>
+                    시작일 : <%=start_date%>
+                </div>
+                <div>
+                    종료일 : <%=end_date%>
+                </div>
+                <div>
+                    배율 : 10배
+                </div>
+                <div>
+                    익절 범위 : <span class="profit" style="font-weight:bold;">5% </span><span class="profit smaller">~ 20%</span>
+                </div>
+                <div>
+                    손절 범위 : <span class="loss">-10%</span>
+                </div>
+                <br>
+
+                <div>
+                    [Process]
+                </div>
+                <div style="margin-bottom:5px;">
+                    <span>수익율 : </span><span id="current_profit_rate" style="font-size:17px; vertical-align:middle; padding:5px 7px; background-color: rgb(241, 241, 241); border-radius:5px; font-weight: bold;"><%=(current_profit_rate * 100).toFixed(1)%>%</span> (R.M. : <span class="loss">-30%</span>)
+                    <script>
+                        const current_profit_rate = Number('<%=current_profit_rate%>');
+                        if (current_profit_rate > 0) {
+                            $('#current_profit_rate').css('color', '#009900');
+                            $('#current_profit_rate').text('+' + (current_profit_rate * 100).toFixed(1) + '%');
+                        } 
+                        else if (current_profit_rate < 0) $('#current_profit_rate').css('color', '#FF9999');
+                        else if (current_profit_rate == 0) $('#current_profit_rate').css('color', '#F3F3F3');
+                    </script>
+                </div>
+                <div>
+                    남은 날짜 : <b><%=date_count%></b>
+                </div>
+                <div>
+                    <span style="vertical-align:super;">남은 카드 : </span><b style="font-size:30px; vertical-align:sub;"><%=card_count%></b>
+                </div>
+                <hr>
+
+                <div>
+                    오늘 날짜 : <span id="today_date"></span>
+                </div>
+                <div class="mb-4">
+                    오늘 마감가 : 
+                    <% if (!today_reported) { %>
+                        <input type="text" id="daily_report" style="width:130px;"><button type="button" class="btn-secondary" onclick="dailyReport()">입력</button>
+                    <% } else { %>
+                        입력 완료
+                    <% } %>
+                </div>
+
+                <div style="width:320px; margin-left:-20px;">
+                    <% for (let i = 0; i < daily_reports.length; i++) { %>
+                        <div style="display:inline-block; border:1px solid black; width:60px; margin-bottom:5px;">
+                            <div id="daily_report_rate_<%=i%>" style="text-align:center; font-size:12px;"><%=(daily_reports[i].profit_or_lost_rate * 100).toFixed(1)%>%</div>
+                            <script>
+                                var profit_or_lost_rate = Number('<%=daily_reports[i].profit_or_lost_rate%>');
+                                if (profit_or_lost_rate > 0) {
+                                    $('#daily_report_rate_<%=i%>').css('background-color', '#66CC66');
+                                    $('#daily_report_rate_<%=i%>').text('+' + (profit_or_lost_rate * 100).toFixed(1) + '%');
+                                } 
+                                else if (profit_or_lost_rate < 0) $('#daily_report_rate_<%=i%>').css('background-color', '#FF9999');
+                                else if (profit_or_lost_rate == 0) $('#daily_report_rate_<%=i%>').css('background-color', '#F3F3F3');
+                            </script>
+                            <div style="text-align:center; font-size:12px;"><%=daily_reports[i].total_amount%></div>
+                        </div>
+                    <% } %>
+                </div>
+
+                <br>
+                <div>
+                    
+                    <hr>
+                    <div>
+                        <div style="margin:0 auto; width:110px;">
+                            <button type="button" class="btn-secondary" id="addButton" onclick="start()">종료</button> / <button type="button" class="btn-secondary" id="addButton" onclick="start()">리셋</button>
+                        </div> 
+                    </div>
+                    <div class="row mt-3 mb-3" style="margin:0 auto; width:30%">
+                        <button type="button" class="btn-success col rounded-3 cBtn" id="addButton" onclick="logout()">로그아웃</button>
+                    </div>
+                </div>
             </div>
+
+            
 
             <!-- <div class="copyBox pt-2">
                 <button><i class="fa fa-clone"></i></button>

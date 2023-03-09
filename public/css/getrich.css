@@ -1,3 +1,15 @@
 .box {
     display:none;
 }
+
+.loss {
+    color:#FF6666;
+}
+
+.profit {
+    color:#009900;
+}
+
+.smaller {
+    font-size: 12px;
+}

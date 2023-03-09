@@ -13,6 +13,16 @@ const UserService = {
         }
     }, 
 
+    async get_all() {
+        try {
+            const users = await User.find().sort({_id:-1}).exec();
+            return users;
+        }
+        catch (error) {
+            throw error;
+        }
+    },
+
     async get_user_by_uid(_id) {
         try {
             const user = await User.findOne({_id}).exec();
@@ -79,6 +89,15 @@ const UserService = {
             const user = await User.findOne({_id}).exec();
             const result = bcrypt.compareSync(password, user.password);
             return result;
+        }
+        catch (error) {
+            throw error;
+        }
+    },
+
+    async edit_by_doc(_id, doc) {
+        try {
+            await User.updateOne({_id}, {$set:doc}).exec();
         }
         catch (error) {
             throw error;

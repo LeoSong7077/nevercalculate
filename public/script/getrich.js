@@ -1,15 +1,18 @@
+if (document.getElementById('today_date')) document.getElementById('today_date').innerText = dateFormat(new Date(), true);
+
 function register() {
     const userid = document.getElementById('register_userid').value;
     const password = document.getElementById('register_password').value;
     const password_check = document.getElementById('register_password_check').value;
+    const total_amount = document.getElementById('total_amount').value;
 
-    if (!userid || !password || !password_check) return alert('모든 정보를 입력해 주세요.');
+    if (!userid || !password || !password_check || !total_amount) return alert('모든 정보를 입력해 주세요.');
     if (password !== password_check) return alert('비밀번호가 일치하지 않습니다.')
 
     $.ajax({
         method:'post',
         url:'/gr/register/user',
-        data : { userid, password }
+        data : { userid, password, total_amount }
     })
     .done(result => {
         const { success, failType } = result;
@@ -57,23 +60,61 @@ function start() {
     original.setSeconds(0);
     const now = new Date(original);
     // console.log("현재 : ", now);
-    const oneMonthLater = new Date(original.setMonth(original.getMonth() + 1)); // 한달 후
+
+    original.setMonth(original.getMonth() + 1)
+    original.setHours(original.getHours() + 4); // 새벽 4시까지
+    const oneMonthLater = new Date(original); // 한달 후
     // console.log("한달 후 : ", oneMonthLater);
 
     const btMs = oneMonthLater.getTime() - now.getTime() ;
-    const btDay = btMs / (1000*60*60*24) ;
-    // console.log("일수 차이는?? " + btDay);
+    const btDay = Math.round(btMs / (1000*60*60*24));
 
     $.ajax({
         type:'post',
         url:'/gr/start',
         data: {
-            date_string : (original.toString()),
-            total_date : btDay
+            start_date : (now.toString()),
+            end_date : (oneMonthLater.toString()),
+            date_count : btDay
         }
     })
     .done(result => {
         const { success } = result;
         window.location.href = '/gr';
     })
+}
+
+function dailyReport() {
+    const total_amount = document.getElementById('daily_report').value;
+    $.ajax({
+        url:'/gr/daily_report',
+        method:'post',
+        data:{
+            total_amount
+        }
+    })
+    .done(result => {
+        const { success } = result;
+        if (success && window.confirm('오늘 마감가를 입력하시겠습니까?')) window.location.reload();
+    })
+    .fail(error => {
+        console.log(error);
+    });
+}
+
+function dateFormat(date, isHourRemoved) {
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    let hour = date.getHours();
+    let minute = date.getMinutes();
+    let second = date.getSeconds();
+
+    month = month >= 10 ? month : '0' + month;
+    day = day >= 10 ? day : '0' + day;
+    hour = hour >= 10 ? hour : '0' + hour;
+    minute = minute >= 10 ? minute : '0' + minute;
+    second = second >= 10 ? second : '0' + second;
+
+    if (!isHourRemoved) return date.getFullYear() + '-' + month + '-' + day + ' ' + '(' + hour + ':' + minute + ':' + second + ')';
+    else return date.getFullYear() + '-' + month + '-' + day;
 }
