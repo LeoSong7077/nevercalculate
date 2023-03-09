@@ -23,7 +23,8 @@ router.get('/', (async function (request, response) {
         today_reported = '',
         daily_reports = '',
         total_amount = '',
-        current_profit_rate = '';
+        current_profit_rate = '',
+        start_total_amount = '';
         
     if (login) {
         const { user } = request;
@@ -36,7 +37,8 @@ router.get('/', (async function (request, response) {
             today_reported = user.today_reported;
             daily_reports = await DailyReportService.get_many_by_doc({uid:user.id, monthly_report_id:user.monthly_report_id});
             total_amount = user.total_amount;
-            current_profit_rate = await getUserCurrentProfitRate(user.monthly_report_id, user.total_amount)
+            current_profit_rate = await getUserCurrentProfitRate(user.monthly_report_id, user.total_amount);
+            start_total_amount = (await MonthlyReportService.get_one_by_id(user.monthly_report_id)).start_total_amount;
         }
     }
 
@@ -53,7 +55,8 @@ router.get('/', (async function (request, response) {
             today_reported,
             daily_reports,
             total_amount,
-            current_profit_rate
+            current_profit_rate,
+            start_total_amount
         });
 }));
 
@@ -87,6 +90,12 @@ router.post('/start', (async function (request, response) {
     response.send({success:true});
 }));
 
+router.get('/terminate', (async function (request, response) {
+    await UserService.edit_by_doc(request.user.id, { start:false, today_reported:false });
+
+    response.send({success:true});
+}));
+
 router.post('/daily_report', (async function (request, response) {
     const total_amount = Number(request.body.total_amount);
     const { id, monthly_report_id  } = request.user;
@@ -100,8 +109,6 @@ router.post('/daily_report', (async function (request, response) {
 
     // User 업데이트
     await UserService.edit_by_doc(id, {total_amount, today_reported:true});
-
-    console.log(rate);
 
     response.send({success:true});
 }));

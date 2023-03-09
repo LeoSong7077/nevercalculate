@@ -84,7 +84,55 @@ function start() {
     })
 }
 
+function terminate() {
+    if (!window.confirm('한 분기 투가자 종료됩니다. 정말 종료하시겠습니까?')) return;
+
+    $.ajax({
+        type:'get',
+        url:'/gr/terminate',
+    })
+    .done(result => {
+        const { success } = result;
+        window.location.href = '/gr';
+    })
+}
+
+function restart() {
+    if (!window.confirm('한 분기 투가자 종료 후 다시 시작됩니다. 정말 재시작하시겠습니까?')) return;
+
+    const original = new Date();
+    original.setHours(0);
+    original.setMinutes(0);
+    original.setSeconds(0);
+    const now = new Date(original);
+    // console.log("현재 : ", now);
+
+    original.setMonth(original.getMonth() + 1)
+    original.setHours(original.getHours() + 4); // 새벽 4시까지
+    const oneMonthLater = new Date(original); // 한달 후
+    // console.log("한달 후 : ", oneMonthLater);
+
+    const btMs = oneMonthLater.getTime() - now.getTime() ;
+    const btDay = Math.round(btMs / (1000*60*60*24));
+
+    $.ajax({
+        type:'post',
+        url:'/gr/start',
+        data: {
+            start_date : (now.toString()),
+            end_date : (oneMonthLater.toString()),
+            date_count : btDay
+        }
+    })
+    .done(result => {
+        const { success } = result;
+        window.location.href = '/gr';
+    })
+}
+
 function dailyReport() {
+    if (!window.confirm('오늘 마감가를 입력하시겠습니까?')) return;
+
     const total_amount = document.getElementById('daily_report').value;
     $.ajax({
         url:'/gr/daily_report',
@@ -95,7 +143,7 @@ function dailyReport() {
     })
     .done(result => {
         const { success } = result;
-        if (success && window.confirm('오늘 마감가를 입력하시겠습니까?')) window.location.reload();
+        if (success) window.location.reload();
     })
     .fail(error => {
         console.log(error);
