@@ -104,6 +104,24 @@ const UserService = {
         }
     },
 
+    async increase_date_count_by_value(_id, value) {
+        try {
+            await User.updateOne({_id}, {$inc:{date_count:value}}).exec();
+        }
+        catch (error) {
+            throw error;
+        }
+    },
+
+    async decrease_date_count_by_value(_id, value) {
+        try {
+            await User.updateOne({_id}, {$inc:{date_count:(-1)*value}}).exec();
+        }
+        catch (error) {
+            throw error;
+        }
+    },
+
 }
 module.exports = UserService;
 
