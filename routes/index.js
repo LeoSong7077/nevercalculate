@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const passport = require('passport');
 
 // modules
 const doAsync = require('../modules/function/doAsync');
@@ -44,6 +45,13 @@ router.post('/calculate', (async function (request, response) {
 
     response.send({success:true, data:results})
 }));
+
+router.get('/auth/telegram',
+    passport.authenticate('telegram'),
+    function(req, res) {
+        // Successful authentication, redirect home.
+        res.redirect('/');
+});
 
 router.get('/robots.txt', function (request, response) {
     response.type("text/plain");

@@ -108,7 +108,7 @@ router.post('/daily_report', (async function (request, response) {
     await DailyReportService.save({uid:id, monthly_report_id, profit_or_lost_rate:rate, total_amount});
 
     // User 업데이트
-    await UserService.edit_by_doc(id, {total_amount }); // today_reported:true
+    await UserService.edit_by_doc(id, {total_amount, today_reported:true}); // today_reported:true
 
     response.send({success:true});
 }));
