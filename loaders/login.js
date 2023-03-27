@@ -1,6 +1,5 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const TelegramStrategy = require('passport-telegram-official').TelegramStrategy;
 // const CustomStrategy = require('passport-custom').Strategy;
 const User = require('../models/User');
 
@@ -27,16 +26,6 @@ module.exports = function (app) {
                 });
             });
         }
-    ));
-
-    passport.use(new TelegramStrategy({
-        botToken: '5601051223:AAEPzJD9wo4wxGBLAOHiDWg37LE6RJtK4wc'// BOT_TOKEN
-      },
-      function(profile, cb) {
-        User.findOrCreate({ telegramId: profile.id }, function (err, user) {
-          return cb(err, user);
-        });
-      }
     ));
 
     // passport.use(new CustomStrategy(
