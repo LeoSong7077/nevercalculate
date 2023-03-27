@@ -132,10 +132,10 @@
                     배율 : 10배
                 </div>
                 <div>
-                    익절 범위 : <span class="profit" style="font-weight:bold;">5% </span><span class="profit smaller">~ 20%</span>
+                    익절 범위 : <span style="font-weight:bold;">5% </span><span class="smaller">~ 20%</span>
                 </div>
                 <div>
-                    손절 범위 : <span class="loss">-10%</span>
+                    손절 범위 : <span style="font-weight:bold;">-10%</span>
                 </div>
                 <br>
 
@@ -143,14 +143,14 @@
                     [Process]
                 </div>
                 <div style="margin-bottom:5px;">
-                    <span>수익율 : </span><span id="current_profit_rate" style="font-size:17px; vertical-align:middle; padding:5px 7px; background-color: rgb(245, 245, 245); border-radius:5px; font-weight: bold;"><%=(current_profit_rate * 100).toFixed(1)%>%</span> (R.M. : <span class="loss">-30%</span>)
+                    <span>수익률 : </span><span id="current_profit_rate" style="font-size:19px; vertical-align:middle; padding:9px 9px; background-color: rgb(80, 80, 80); border-radius:5px; font-weight: bold;"><%=(current_profit_rate * 100).toFixed(1)%>%</span> (R.M. : <span>-30%</span>)
                     <script>
                         const current_profit_rate = Number('<%=current_profit_rate%>');
                         if (current_profit_rate > 0) {
-                            $('#current_profit_rate').css('color', '#009900');
+                            $('#current_profit_rate').css('color', '#00c500');
                             $('#current_profit_rate').text('+' + (current_profit_rate * 100).toFixed(1) + '%');
                         } 
-                        else if (current_profit_rate < 0) $('#current_profit_rate').css('color', '#FF9999');
+                        else if (current_profit_rate < 0) $('#current_profit_rate').css('color', '#ff7d7d');
                         else if (current_profit_rate == 0) $('#current_profit_rate').css('color', '#F3F3F3');
                     </script>
                 </div>
